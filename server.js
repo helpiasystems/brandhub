@@ -10,33 +10,36 @@ app.use(express.static('public'))
 // ============================================================
 //  ADAPTADORES DE IA
 //  Para adicionar uma nova IA: crie um novo objeto em AI_ADAPTERS
-//  com as funções buildRequest() e parseResponse()
+//  com as funções buildUrl(), buildHeaders(), buildRequest() e parseResponse()
 // ============================================================
 const AI_ADAPTERS = {
 
-  // --- GEMINI (Google) ---
-  gemini: {
-    endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
-    buildHeaders: () => ({
-      'Content-Type': 'application/json'
-    }),
-    buildUrl: () => {
-      const key = process.env.GEMINI_API_KEY
-      if (!key) throw new Error('GEMINI_API_KEY não configurada no .env')
-      return `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`
+  // --- GROQ (Gratuito, sem cartão) ---
+  // Obtenha sua chave em: https://console.groq.com
+  groq: {
+    buildUrl: () => 'https://api.groq.com/openai/v1/chat/completions',
+    buildHeaders: () => {
+      const key = process.env.GROQ_API_KEY
+      if (!key) throw new Error('GROQ_API_KEY não configurada no .env')
+      return {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${key}`
+      }
     },
     buildRequest: ({ prompt, max_tokens }) => ({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: { maxOutputTokens: max_tokens || 1000 }
+      model: 'llama-3.3-70b-versatile',
+      max_tokens: max_tokens || 1000,
+      messages: [{ role: 'user', content: prompt }]
     }),
     parseResponse: (data) => {
-      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || ''
-      if (!text) throw new Error('Resposta vazia do Gemini: ' + JSON.stringify(data))
+      const text = data?.choices?.[0]?.message?.content || ''
+      if (!text) throw new Error('Resposta vazia do Groq: ' + JSON.stringify(data))
       return text
     }
   },
 
   // --- ANTHROPIC (Claude) ---
+  // Obtenha sua chave em: https://console.anthropic.com
   anthropic: {
     buildUrl: () => 'https://api.anthropic.com/v1/messages',
     buildHeaders: () => {
@@ -56,6 +59,26 @@ const AI_ADAPTERS = {
     parseResponse: (data) => {
       const text = data?.content?.map(i => i.text || '').join('') || ''
       if (!text) throw new Error('Resposta vazia do Claude: ' + JSON.stringify(data))
+      return text
+    }
+  },
+
+  // --- GEMINI (Google) ---
+  // Obtenha sua chave em: https://aistudio.google.com/app/apikey
+  gemini: {
+    buildUrl: () => {
+      const key = process.env.GEMINI_API_KEY
+      if (!key) throw new Error('GEMINI_API_KEY não configurada no .env')
+      return `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`
+    },
+    buildHeaders: () => ({ 'Content-Type': 'application/json' }),
+    buildRequest: ({ prompt, max_tokens }) => ({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: { maxOutputTokens: max_tokens || 1000 }
+    }),
+    parseResponse: (data) => {
+      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || ''
+      if (!text) throw new Error('Resposta vazia do Gemini: ' + JSON.stringify(data))
       return text
     }
   },
@@ -82,10 +105,10 @@ const AI_ADAPTERS = {
 // ============================================================
 //  ENDPOINT PRINCIPAL
 //  POST /api/generate
-//  Body: { provider: 'gemini' | 'anthropic', prompt: '...', max_tokens: 1000 }
+//  Body: { provider: 'groq' | 'anthropic' | 'gemini', prompt: '...', max_tokens: 1000 }
 // ============================================================
 app.post('/api/generate', async (req, res) => {
-  const { provider = 'gemini', prompt, max_tokens } = req.body
+  const { provider = 'groq', prompt, max_tokens } = req.body
 
   if (!prompt) {
     return res.status(400).json({ error: 'Campo "prompt" é obrigatório' })
