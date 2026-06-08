@@ -18,5 +18,11 @@
   "bugs": {
     "url": "https://github.com/helpiasystems/brandhub/issues"
   },
-  "homepage": "https://github.com/helpiasystems/brandhub#readme"
+  "homepage": "https://github.com/helpiasystems/brandhub#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "node-fetch": "^3.3.2"
+  }
 }
