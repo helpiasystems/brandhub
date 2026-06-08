@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --brand-primary:#1a1a2e;
+  --brand-accent:#e94560;
+  --brand-accent2:#f5a623;
+  --brand-surface:#f8f7f4;
+  --brand-card:#ffffff;
+  --brand-text:#1a1a2e;
+  --brand-muted:#6b7280;
+  --brand-border:#e5e7eb;
+  --brand-radius:12px;
+  --sidebar-w:240px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--brand-surface);color:var(--brand-text);min-height:100vh;display:flex}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--brand-primary);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:100}
+.sidebar-logo{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.logo-mark{display:flex;align-items:center;gap:10px}
+.logo-icon{width:36px;height:36px;background:var(--brand-accent);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:700}
+.logo-text{color:#fff;font-size:16px;font-weight:600;line-height:1.1}
+.logo-sub{font-size:10px;color:rgba(255,255,255,0.4);font-weight:400;letter-spacing:.05em;text-transform:uppercase}
+.sidebar-nav{flex:1;padding:16px 0;overflow-y:auto}
+.nav-section{padding:8px 20px 4px;font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:.08em;font-weight:500}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,0.6);cursor:pointer;transition:all .2s;font-size:14px;font-weight:400;border-left:3px solid transparent}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,0.06)}
+.nav-item.active{color:#fff;background:rgba(233,69,96,0.15);border-left-color:var(--brand-accent)}
+.nav-item i{font-size:18px;width:20px}
+.sidebar-bottom{padding:16px 20px;border-top:1px solid rgba(255,255,255,0.08)}
+.brand-badge{display:flex;align-items:center;gap:8px;padding:10px 12px;background:rgba(255,255,255,0.05);border-radius:8px;cursor:pointer}
+.brand-avatar{width:28px;height:28px;border-radius:6px;background:var(--brand-accent2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;overflow:hidden}
+.brand-avatar img{width:100%;height:100%;object-fit:cover}
+.brand-info{flex:1;min-width:0}
+.brand-name{color:#fff;font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand-plan{color:rgba(255,255,255,0.35);font-size:10px}
+
+/* MAIN */
+.main{margin-left:var(--sidebar-w);flex:1;min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:#fff;border-bottom:1px solid var(--brand-border);padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar-title{font-size:18px;font-weight:600;color:var(--brand-text)}
+.topbar-title span{color:var(--brand-accent)}
+.topbar-actions{display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:none;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn-primary{background:var(--brand-accent);color:#fff}
+.btn-primary:hover{background:#d63652}
+.btn-outline{background:#fff;color:var(--brand-text);border:1px solid var(--brand-border)}
+.btn-outline:hover{background:var(--brand-surface);border-color:#d1d5db}
+.btn-ghost{background:transparent;color:var(--brand-muted);padding:8px 10px}
+.btn-ghost:hover{background:var(--brand-surface);color:var(--brand-text)}
+.content{padding:32px;flex:1}
+
+/* CARDS */
+.card{background:var(--brand-card);border-radius:var(--brand-radius);border:1px solid var(--brand-border);overflow:hidden}
+.card-header{padding:20px 24px;border-bottom:1px solid var(--brand-border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px}
+.card-body{padding:24px}
+.section-title{font-size:22px;font-weight:600;margin-bottom:4px}
+.section-sub{color:var(--brand-muted);font-size:14px;margin-bottom:24px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+
+/* TABS */
+.tabs{display:flex;gap:0;background:var(--brand-surface);border-radius:8px;padding:4px;margin-bottom:24px}
+.tab{padding:8px 16px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;color:var(--brand-muted);transition:all .2s}
+.tab.active{background:#fff;color:var(--brand-text);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+
+/* FORMS */
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:12px;font-weight:500;color:var(--brand-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+.form-input{width:100%;padding:10px 14px;border:1px solid var(--brand-border);border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--brand-text);background:#fff;transition:border .2s;outline:none}
+.form-input:focus{border-color:var(--brand-accent)}
+.form-textarea{resize:vertical;min-height:80px}
+.color-grid{display:flex;gap:8px;flex-wrap:wrap}
+.color-swatch{width:36px;height:36px;border-radius:8px;cursor:pointer;border:2px solid transparent;transition:all .2s;position:relative}
+.color-swatch.active::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700}
+.color-add{border:2px dashed var(--brand-border);display:flex;align-items:center;justify-content:center;color:var(--brand-muted);font-size:18px}
+
+/* UPLOAD */
+.upload-area{border:2px dashed var(--brand-border);border-radius:12px;padding:32px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+.upload-area:hover,.upload-area.drag{border-color:var(--brand-accent);background:rgba(233,69,96,.03)}
+.upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.upload-icon{font-size:36px;color:var(--brand-muted);margin-bottom:8px}
+.upload-text{font-size:14px;font-weight:500;margin-bottom:4px}
+.upload-hint{font-size:12px;color:var(--brand-muted)}
+
+/* IMAGE GRID */
+.img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.img-item{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1;background:#f0f0f0;cursor:pointer}
+.img-item img{width:100%;height:100%;object-fit:cover}
+.img-overlay{position:absolute;inset:0;background:rgba(26,26,46,.7);opacity:0;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.img-item:hover .img-overlay{opacity:1}
+.img-action{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:.15s}
+.img-action:hover{background:rgba(255,255,255,.3)}
+
+/* AI OUTPUT */
+.ai-output{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);border-radius:12px;padding:24px;position:relative;overflow:hidden}
+.ai-output::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;border-radius:50%;background:rgba(233,69,96,.1);pointer-events:none}
+.ai-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(233,69,96,.15);color:#e94560;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
+.ai-chip i{font-size:12px}
+.ai-text{color:#fff;font-size:14px;line-height:1.7;margin-bottom:16px}
+.ai-actions{display:flex;gap:8px}
+.ai-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);padding:7px 14px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;transition:.2s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:6px}
+.ai-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+
+/* LOADING */
+.loading-dots{display:inline-flex;gap:4px}
+.loading-dots span{width:6px;height:6px;border-radius:50%;background:var(--brand-accent);animation:dot .8s infinite}
+.loading-dots span:nth-child(2){animation-delay:.15s}
+.loading-dots span:nth-child(3){animation-delay:.3s}
+@keyframes dot{0%,80%,100%{opacity:.2;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
+
+/* MASK */
+.mask-preview{position:relative;display:inline-block;width:100%}
+.mask-canvas-wrap{position:relative;width:100%;padding-bottom:100%;background:#f0f0f0;border-radius:8px;overflow:hidden}
+.mask-canvas-wrap canvas{position:absolute;inset:0;width:100%;height:100%}
+.mask-tools{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.mask-tool{padding:6px 12px;border:1px solid var(--brand-border);border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;transition:.2s;color:var(--brand-muted);background:#fff}
+.mask-tool.active{border-color:var(--brand-accent);color:var(--brand-accent);background:rgba(233,69,96,.05)}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600}
+.badge-green{background:#ecfdf5;color:#059669}
+.badge-amber{background:#fffbeb;color:#d97706}
+.badge-blue{background:#eff6ff;color:#2563eb}
+.badge-red{background:#fef2f2;color:#dc2626}
+
+/* PROMPT CARD */
+.prompt-card{background:#fff;border:1px solid var(--brand-border);border-radius:10px;padding:16px;margin-bottom:12px}
+.prompt-tag{display:inline-block;background:rgba(99,102,241,.1);color:#6366f1;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:4px;margin-bottom:8px}
+.prompt-text{font-size:13px;color:var(--brand-text);line-height:1.6;font-family:'DM Sans',sans-serif}
+
+/* STAT */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.stat-card{background:#fff;border:1px solid var(--brand-border);border-radius:10px;padding:16px}
+.stat-label{font-size:11px;color:var(--brand-muted);font-weight:500;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.stat-value{font-size:24px;font-weight:600;color:var(--brand-text)}
+.stat-delta{font-size:11px;margin-top:2px}
+.delta-up{color:#059669}.delta-down{color:#dc2626}
+
+/* PAGE TRANSITIONS */
+.page{display:none}.page.active{display:block}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px}
+
+/* COLOR PICKER */
+.picker-group{display:flex;gap:8px;align-items:center}
+input[type=color]{width:36px;height:36px;border:none;padding:0;background:none;cursor:pointer;border-radius:6px}
+
+/* FONT PREVIEW */
+.font-preview{padding:16px;border:1px solid var(--brand-border);border-radius:8px;background:#fafafa}
+.font-sample{font-size:20px;margin-bottom:4px;color:var(--brand-text)}
+.font-meta{font-size:11px;color:var(--brand-muted)}
+
+/* TEMPLATE */
+.template-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.template-item{border:1px solid var(--brand-border);border-radius:10px;overflow:hidden;cursor:pointer;transition:.2s}
+.template-item:hover{border-color:var(--brand-accent);box-shadow:0 4px 16px rgba(233,69,96,.12)}
+.template-thumb{height:120px;background:linear-gradient(135deg,#667eea,#764ba2);position:relative;overflow:hidden}
+.template-name{padding:10px 12px;font-size:12px;font-weight:500}
+.template-tag{position:absolute;top:8px;right:8px;font-size:10px;font-weight:700}
+
+/* TOGGLE */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--brand-border)}
+.toggle-row:last-child{border-bottom:none}
+.toggle{width:40px;height:22px;background:var(--brand-border);border-radius:11px;position:relative;cursor:pointer;transition:.2s}
+.toggle.on{background:var(--brand-accent)}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.2s}
+.toggle.on::after{left:21px}
+
+/* INTEGRATIONS */
+.integration-item{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--brand-border);border-radius:10px;margin-bottom:10px}
+.int-logo{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;flex-shrink:0}
+.int-info{flex:1}
+.int-name{font-size:14px;font-weight:500;margin-bottom:2px}
+.int-desc{font-size:12px;color:var(--brand-muted)}
+.int-btn{font-size:12px;padding:6px 14px}
+
+/* HIDE SCROLLBAR on sidebar */
+.sidebar-nav::-webkit-scrollbar{width:2px}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">
+      <div class="logo-icon">B</div>
+      <div>
+        <div class="logo-text">BrandHub</div>
+        <div class="logo-sub">Marketing AI</div>
+      </div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">Principal</div>
+    <div class="nav-item active" onclick="nav('dashboard')">
+      <i class="ti ti-layout-dashboard"></i> Dashboard
+    </div>
+    <div class="nav-item" onclick="nav('brand')">
+      <i class="ti ti-palette"></i> Identidade de Marca
+    </div>
+    <div class="nav-section">Conteúdo</div>
+    <div class="nav-item" onclick="nav('copy')">
+      <i class="ti ti-pencil"></i> Gerador de Legendas
+    </div>
+    <div class="nav-item" onclick="nav('images')">
+      <i class="ti ti-photo"></i> Imagens & Máscaras
+    </div>
+    <div class="nav-item" onclick="nav('prompts')">
+      <i class="ti ti-wand"></i> Prompts para IA
+    </div>
+    <div class="nav-section">Ferramentas</div>
+    <div class="nav-item" onclick="nav('templates')">
+      <i class="ti ti-template"></i> Templates
+    </div>
+    <div class="nav-item" onclick="nav('integrations')">
+      <i class="ti ti-plug"></i> Integrações
+    </div>
+    <div class="nav-item" onclick="nav('settings')">
+      <i class="ti ti-settings"></i> Configurações
+    </div>
+  </nav>
+  <div class="sidebar-bottom">
+    <div class="brand-badge" onclick="nav('brand')">
+      <div class="brand-avatar" id="sidebar-avatar">
+        <span id="sidebar-initials">MB</span>
+      </div>
+      <div class="brand-info">
+        <div class="brand-name" id="sidebar-brand-name">Minha Marca</div>
+        <div class="brand-plan">Plano Pro</div>
+      </div>
+      <i class="ti ti-chevron-right" style="color:rgba(255,255,255,.3);font-size:14px"></i>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <header class="topbar">
+    <div class="topbar-title" id="page-title">Dashboard <span>/ Visão Geral</span></div>
+    <div class="topbar-actions">
+      <button class="btn btn-ghost"><i class="ti ti-bell" style="font-size:16px"></i></button>
+      <button class="btn btn-outline" onclick="nav('integrations')"><i class="ti ti-plug"></i> Integrações</button>
+      <button class="btn btn-primary" id="main-cta" onclick="nav('copy')"><i class="ti ti-sparkles"></i> Gerar Conteúdo</button>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-label">Conteúdos Gerados</div>
+          <div class="stat-value">247</div>
+          <div class="stat-delta delta-up"><i class="ti ti-trending-up" style="font-size:11px"></i> +12% este mês</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Imagens Criadas</div>
+          <div class="stat-value">89</div>
+          <div class="stat-delta delta-up"><i class="ti ti-trending-up" style="font-size:11px"></i> +8% este mês</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Prompts Salvos</div>
+          <div class="stat-value">34</div>
+          <div class="stat-delta delta-up"><i class="ti ti-trending-up" style="font-size:11px"></i> +5 novos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Consistência</div>
+          <div class="stat-value">94%</div>
+          <div class="stat-delta delta-up"><i class="ti ti-check" style="font-size:11px"></i> Excelente</div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="ti ti-clock" style="font-size:16px;color:var(--brand-muted)"></i> Atividade Recente</div>
+          </div>
+          <div class="card-body" style="padding:0">
+            <div id="activity-list"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="ti ti-sparkles" style="font-size:16px;color:var(--brand-accent)"></i> Gerar Rápido</div>
+          </div>
+          <div class="card-body">
+            <p style="font-size:13px;color:var(--brand-muted);margin-bottom:16px">Qual tipo de conteúdo você precisa agora?</p>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-outline" style="justify-content:flex-start;text-align:left" onclick="nav('copy')"><i class="ti ti-pencil" style="color:var(--brand-accent)"></i> Legenda para post no Instagram</button>
+              <button class="btn btn-outline" style="justify-content:flex-start;text-align:left" onclick="nav('copy')"><i class="ti ti-brand-linkedin" style="color:#0a66c2"></i> Conteúdo para LinkedIn</button>
+              <button class="btn btn-outline" style="justify-content:flex-start;text-align:left" onclick="nav('prompts')"><i class="ti ti-wand" style="color:#8b5cf6"></i> Prompt para gerar imagem</button>
+              <button class="btn btn-outline" style="justify-content:flex-start;text-align:left" onclick="nav('images')"><i class="ti ti-photo" style="color:#059669"></i> Aplicar máscara em foto</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRAND IDENTITY -->
+    <div class="page" id="page-brand">
+      <div class="section-title">Identidade de Marca</div>
+      <div class="section-sub">Configure como sua marca se apresenta em todo o conteúdo gerado por IA</div>
+      <div class="grid-2" style="align-items:start">
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div class="card">
+            <div class="card-header"><div class="card-title"><i class="ti ti-building" style="font-size:16px;color:var(--brand-muted)"></i> Dados da Marca</div></div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">Nome da Marca</label>
+                <input class="form-input" id="brand-name-input" placeholder="Ex: Studio Criativo" value="Minha Marca" oninput="updateBrandPreview()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Slogan / Tagline</label>
+                <input class="form-input" id="brand-slogan" placeholder="Sua proposta de valor em uma frase">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Setor / Nicho</label>
+                <select class="form-input" id="brand-sector">
+                  <option>Moda & Lifestyle</option>
+                  <option>Tecnologia</option>
+                  <option>Alimentação & Gastronomia</option>
+                  <option>Saúde & Bem-estar</option>
+                  <option>Educação</option>
+                  <option>Beleza & Estética</option>
+                  <option>Varejo</option>
+                  <option>Serviços Profissionais</option>
+                  <option>Outro</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Tom de Voz</label>
+                <div style="display:flex;gap:6px;flex-wrap:wrap" id="tone-chips">
+                  <div class="mask-tool active" onclick="toggleTone(this)">Profissional</div>
+                  <div class="mask-tool" onclick="toggleTone(this)">Descontraído</div>
+                  <div class="mask-tool" onclick="toggleTone(this)">Inspirador</div>
+                  <div class="mask-tool" onclick="toggleTone(this)">Educativo</div>
+                  <div class="mask-tool" onclick="toggleTone(this)">Divertido</div>
+                  <div class="mask-tool" onclick="toggleTone(this)">Luxuoso</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Sobre a Marca</label>
+                <textarea class="form-input form-textarea" id="brand-desc" placeholder="Descreva sua marca, missão, valores e público-alvo..."></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title"><i class="ti ti-typography" style="font-size:16px;color:var(--brand-muted)"></i> Tipografia</div></div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">Fonte Principal</label>
+                <select class="form-input" id="brand-font" onchange="updateFontPreview()">
+                  <option>DM Serif Display</option>
+                  <option>Playfair Display</option>
+                  <option>Montserrat</option>
+                  <option>Raleway</option>
+                  <option>Poppins</option>
+                  <option>Bebas Neue</option>
+                </select>
+              </div>
+              <div class="font-preview">
+                <div class="font-sample" id="font-sample" style="font-family:'DM Serif Display',serif">Aa — Brand Identity</div>
+                <div class="font-meta">ABCDEFGHIJKLMNOPQRSTUVWXYZ · 0123456789</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div class="card">
+            <div class="card-header"><div class="card-title"><i class="ti ti-photo" style="font-size:16px;color:var(--brand-muted)"></i> Logo da Marca</div></div>
+            <div class="card-body">
+              <div class="upload-area" id="logo-upload" ondragover="drag(event,'logo-upload')" ondragleave="undrag('logo-upload')" ondrop="dropFile(event,'logo')">
+                <input type="file" accept="image/*" onchange="uploadLogo(event)">
+                <div id="logo-preview-wrap">
+                  <div class="upload-icon"><i class="ti ti-brand-abstract" style="font-size:40px;color:var(--brand-muted)"></i></div>
+                  <div class="upload-text">Solte sua logo aqui</div>
+                  <div class="upload-hint">PNG ou SVG com fundo transparente · até 5MB</div>
+                </div>
+              </div>
+              <div style="margin-top:12px">
+                <div class="form-label" style="margin-bottom:8px">Preview da Logo</div>
+                <div style="display:flex;gap:8px">
+                  <div style="flex:1;height:60px;background:#fff;border:1px solid var(--brand-border);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden" id="logo-light">
+                    <span style="font-size:12px;color:var(--brand-muted)">Fundo Claro</span>
+                  </div>
+                  <div style="flex:1;height:60px;background:#1a1a2e;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden" id="logo-dark">
+                    <span style="font-size:12px;color:rgba(255,255,255,.4)">Fundo Escuro</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title"><i class="ti ti-palette" style="font-size:16px;color:var(--brand-muted)"></i> Paleta de Cores</div></div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">Cores Primárias</label>
+                <div class="color-grid" id="primary-colors">
+                  <div class="color-swatch active" style="background:#e94560" data-color="#e94560" onclick="selectColor(this,'primary')"></div>
+                  <div class="color-swatch" style="background:#1a1a2e" data-color="#1a1a2e" onclick="selectColor(this,'primary')"></div>
+                  <div class="color-swatch" style="background:#f5a623" data-color="#f5a623" onclick="selectColor(this,'primary')"></div>
+                  <div class="color-swatch" style="background:#6366f1" data-color="#6366f1" onclick="selectColor(this,'primary')"></div>
+                  <div class="color-swatch" style="background:#10b981" data-color="#10b981" onclick="selectColor(this,'primary')"></div>
+                  <div class="color-swatch color-add"><i class="ti ti-plus" style="font-size:14px"></i><input type="color" style="position:absolute;opacity:0;width:100%;height:100%;cursor:pointer" onchange="addColor(this)"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Cor de Destaque</label>
+                <div class="picker-group">
+                  <input type="color" id="accent-color" value="#e94560" onchange="updateAccentColor(this.value)">
+                  <input class="form-input" id="accent-hex" value="#e94560" style="flex:1;font-family:monospace" onchange="updateAccentColor(this.value)">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Cor de Fundo Padrão</label>
+                <div class="picker-group">
+                  <input type="color" id="bg-color" value="#f8f7f4">
+                  <input class="form-input" value="#f8f7f4" style="flex:1;font-family:monospace">
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;padding:12px" onclick="saveBrand()">
+            <i class="ti ti-device-floppy"></i> Salvar Identidade de Marca
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- COPY GENERATOR -->
+    <div class="page" id="page-copy">
+      <div class="section-title">Gerador de Legendas</div>
+      <div class="section-sub">Crie textos para redes sociais alinhados à sua identidade de marca</div>
+      <div class="grid-2" style="align-items:start">
+        <div class="card">
+          <div class="card-header"><div class="card-title"><i class="ti ti-adjustments" style="font-size:16px;color:var(--brand-muted)"></i> Parâmetros</div></div>
+          <div class="card-body">
+            <div class="form-group">
+              <label class="form-label">Plataforma</label>
+              <select class="form-input" id="copy-platform">
+                <option value="instagram">📸 Instagram</option>
+                <option value="linkedin">💼 LinkedIn</option>
+                <option value="twitter">🐦 Twitter / X</option>
+                <option value="facebook">👥 Facebook</option>
+                <option value="tiktok">🎵 TikTok</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Objetivo do Post</label>
+              <select class="form-input" id="copy-goal">
+                <option>Engajamento e interação</option>
+                <option>Divulgar produto/serviço</option>
+                <option>Educar o público</option>
+                <option>Gerar leads</option>
+                <option>Construir autoridade</option>
+                <option>Anunciar promoção</option>
+                <option>Contar história da marca</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tema / Assunto do Post</label>
+              <textarea class="form-input form-textarea" id="copy-topic" placeholder="Descreva o que você quer comunicar neste post..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Quantidade de Versões</label>
+              <select class="form-input" id="copy-count">
+                <option value="1">1 versão</option>
+                <option value="2" selected>2 versões</option>
+                <option value="3">3 versões</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Incluir</label>
+              <div style="display:flex;flex-direction:column;gap:6px" id="copy-extras">
+                <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer">
+                  <input type="checkbox" checked> Hashtags relevantes
+                </label>
+                <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer">
+                  <input type="checkbox" checked> Chamada para ação (CTA)
+                </label>
+                <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer">
+                  <input type="checkbox"> Emojis
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">🤖 IA para Gerar</label>
+              <select class="form-input" id="ai-provider-copy">
+                <option value="gemini">✨ Gemini (Google) — Gratuito</option>
+                <option value="anthropic">🟠 Claude (Anthropic)</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;padding:12px" onclick="generateCopy()" id="generate-copy-btn">
+              <i class="ti ti-sparkles"></i> Gerar Legendas com IA
+            </button>
+          </div>
+        </div>
+        <div>
+          <div id="copy-results">
+            <div style="text-align:center;padding:60px 20px;color:var(--brand-muted)">
+              <i class="ti ti-pencil" style="font-size:40px;display:block;margin-bottom:12px;opacity:.3"></i>
+              <p style="font-size:14px">Configure os parâmetros e clique em <strong>Gerar Legendas</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMAGES & MASKS -->
+    <div class="page" id="page-images">
+      <div class="section-title">Imagens & Máscaras</div>
+      <div class="section-sub">Faça upload de fotos e aplique máscaras alinhadas à sua identidade visual</div>
+      <div class="grid-2" style="align-items:start">
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div class="card">
+            <div class="card-header"><div class="card-title"><i class="ti ti-upload" style="font-size:16px;color:var(--brand-muted)"></i> Upload de Imagem</div></div>
+            <div class="card-body">
+              <div class="upload-area" id="img-upload-area" ondragover="drag(event,'img-upload-area')" ondragleave="undrag('img-upload-area')">
+                <input type="file" accept="image/*" onchange="uploadImage(event)" id="img-file-input">
+                <div id="img-upload-hint">
+                  <div class="upload-icon"><i class="ti ti-photo" style="font-size:40px;color:var(--brand-muted)"></i></div>
+                  <div class="upload-text">Arraste sua imagem aqui</div>
+                  <div class="upload-hint">JPG, PNG, WebP · até 10MB</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title"><i class="ti ti-layers-intersect" style="font-size:16px;color:var(--brand-muted)"></i> Ferramenta de Máscara</div></div>
+            <div class="card-body">
+              <div class="mask-tools">
+                <div class="mask-tool active" onclick="setMaskTool(this,'frame')">Moldura</div>
+                <div class="mask-tool" onclick="setMaskTool(this,'overlay')">Overlay</div>
+                <div class="mask-tool" onclick="setMaskTool(this,'gradient')">Gradiente</div>
+                <div class="mask-tool" onclick="setMaskTool(this,'circle')">Círculo</div>
+                <div class="mask-tool" onclick="setMaskTool(this,'custom')">Personalizada</div>
+              </div>
+              <div class="mask-canvas-wrap">
+                <canvas id="mask-canvas" width="400" height="400"></canvas>
+              </div>
+              <div style="margin-top:12px;display:flex;gap:8px">
+                <button class="btn btn-outline" style="flex:1;justify-content:center" onclick="applyMask()"><i class="ti ti-wand"></i> Aplicar</button>
+                <button class="btn btn-primary" style="flex:1;justify-content:center" onclick="exportImage()"><i class="ti ti-download"></i> Exportar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="ti ti-photo-album" style="font-size:16px;color:var(--brand-muted)"></i> Biblioteca de Imagens</div>
+              <span class="badge badge-blue">8 imagens</span>
+            </div>
+            <div class="card-body">
+              <div class="img-grid" id="image-library"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROMPTS -->
+    <div class="page" id="page-prompts">
+      <div class="section-title">Gerador de Prompts para IA</div>
+      <div class="section-sub">Crie prompts otimizados para gerar imagens no Midjourney, DALL-E, Stable Diffusion e outros</div>
+      <div class="grid-2" style="align-items:start">
+        <div class="card">
+          <div class="card-header"><div class="card-title"><i class="ti ti-adjustments" style="font-size:16px;color:var(--brand-muted)"></i> Configurações do Prompt</div></div>
+          <div class="card-body">
+            <div class="form-group">
+              <label class="form-label">Ferramenta de IA</label>
+              <select class="form-input" id="ai-tool">
+                <option value="midjourney">Midjourney</option>
+                <option value="dalle">DALL-E 3</option>
+                <option value="sd">Stable Diffusion</option>
+                <option value="firefly">Adobe Firefly</option>
+                <option value="ideogram">Ideogram</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tipo de Imagem</label>
+              <select class="form-input" id="img-type">
+                <option>Post para redes sociais</option>
+                <option>Banner / Capa</option>
+                <option>Produto em destaque</option>
+                <option>Ambiente / Cenário</option>
+                <option>Retrato / Pessoa</option>
+                <option>Ilustração</option>
+                <option>Infográfico</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Estilo Visual</label>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px" id="style-chips">
+                <div class="mask-tool active" onclick="toggleStyle(this)">Fotografia Real</div>
+                <div class="mask-tool" onclick="toggleStyle(this)">Minimalista</div>
+                <div class="mask-tool" onclick="toggleStyle(this)">Flat Design</div>
+                <div class="mask-tool" onclick="toggleStyle(this)">Aquarela</div>
+                <div class="mask-tool" onclick="toggleStyle(this)">3D Render</div>
+                <div class="mask-tool" onclick="toggleStyle(this)">Vintage</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Descrição do que você quer</label>
+              <textarea class="form-input form-textarea" id="prompt-topic" placeholder="Descreva a cena, produto, sentimento ou conceito que deseja visualizar..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Usar cores da marca</label>
+              <div class="toggle-row" style="border:none;padding:0">
+                <span style="font-size:13px;color:var(--brand-muted)">Incluir paleta da marca no prompt</span>
+                <div class="toggle on" id="use-brand-colors" onclick="this.classList.toggle('on')"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">🤖 IA para Gerar</label>
+              <select class="form-input" id="ai-provider-prompt">
+                <option value="gemini">✨ Gemini (Google) — Gratuito</option>
+                <option value="anthropic">🟠 Claude (Anthropic)</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;padding:12px" onclick="generatePrompt()" id="gen-prompt-btn">
+              <i class="ti ti-wand"></i> Gerar Prompts
+            </button>
+          </div>
+        </div>
+        <div id="prompt-results">
+          <div style="text-align:center;padding:60px 20px;color:var(--brand-muted)">
+            <i class="ti ti-wand" style="font-size:40px;display:block;margin-bottom:12px;opacity:.3"></i>
+            <p style="font-size:14px">Configure e clique em <strong>Gerar Prompts</strong> para criar prompts otimizados para cada plataforma de IA</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEMPLATES -->
+    <div class="page" id="page-templates">
+      <div class="section-title">Templates</div>
+      <div class="section-sub">Layouts prontos para acelerar sua produção de conteúdo visual</div>
+      <div class="tabs">
+        <div class="tab active" onclick="setTab(this,'templates','Todos')">Todos</div>
+        <div class="tab" onclick="setTab(this,'templates','Instagram')">Instagram</div>
+        <div class="tab" onclick="setTab(this,'templates','LinkedIn')">LinkedIn</div>
+        <div class="tab" onclick="setTab(this,'templates','Stories')">Stories</div>
+        <div class="tab" onclick="setTab(this,'templates','Banners')">Banners</div>
+      </div>
+      <div class="template-grid" id="template-grid"></div>
+    </div>
+
+    <!-- INTEGRATIONS -->
+    <div class="page" id="page-integrations">
+      <div class="section-title">Integrações</div>
+      <div class="section-sub">Conecte com as principais APIs de IA e ferramentas de marketing</div>
+      <div class="grid-2" style="align-items:start">
+        <div>
+          <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--brand-muted);margin-bottom:12px">Geradores de Imagem IA</div>
+          <div id="ai-integrations"></div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--brand-muted);margin-bottom:12px">Ferramentas de Marketing</div>
+          <div id="mkt-integrations"></div>
+          <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--brand-muted);margin:20px 0 12px">Redes Sociais</div>
+          <div id="social-integrations"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="page" id="page-settings">
+      <div class="section-title">Configurações</div>
+      <div class="section-sub">Preferências da conta e configurações gerais</div>
+      <div style="max-width:600px;display:flex;flex-direction:column;gap:20px">
+        <div class="card">
+          <div class="card-header"><div class="card-title"><i class="ti ti-robot" style="font-size:16px;color:var(--brand-muted)"></i> Comportamento da IA</div></div>
+          <div class="card-body">
+            <div class="toggle-row"><span style="font-size:14px">Sempre usar identidade de marca</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+            <div class="toggle-row"><span style="font-size:14px">Incluir hashtags automaticamente</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+            <div class="toggle-row"><span style="font-size:14px">Sugerir variações de legenda</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+            <div class="toggle-row"><span style="font-size:14px">Adaptar tom por plataforma</span><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+            <div class="toggle-row"><span style="font-size:14px">Salvar histórico de geração</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title"><i class="ti ti-key" style="font-size:16px;color:var(--brand-muted)"></i> Chaves de API</div></div>
+          <div class="card-body">
+            <div class="form-group">
+              <label class="form-label">Anthropic Claude API Key</label>
+              <input class="form-input" type="password" placeholder="sk-ant-..." value="sk-ant-••••••••••••••••">
+            </div>
+            <div class="form-group">
+              <label class="form-label">OpenAI API Key (DALL-E)</label>
+              <input class="form-input" type="password" placeholder="sk-...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Midjourney API Key</label>
+              <input class="form-input" type="password" placeholder="mj-...">
+            </div>
+            <button class="btn btn-primary"><i class="ti ti-device-floppy"></i> Salvar Chaves</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+const state={
+  brandName:'Minha Marca',
+  brandDesc:'',
+  brandTones:['Profissional'],
+  brandColors:['#e94560'],
+  accentColor:'#e94560',
+  currentMaskTool:'frame',
+  uploadedImg:null,
+  imgLibrary:[],
+  activity:[]
+};
+
+function nav(page){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const navItem=document.querySelector(`.nav-item[onclick="nav('${page}')"]`);
+  if(navItem)navItem.classList.add('active');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  const titles={dashboard:'Dashboard / Visão Geral',brand:'Identidade de Marca',copy:'Gerador de Legendas',images:'Imagens & Máscaras',prompts:'Prompts para IA',templates:'Templates',integrations:'Integrações',settings:'Configurações'};
+  document.getElementById('page-title').innerHTML=titles[page]?.replace(' / ','<span> / </span>')||titles[page];
+  if(page==='templates')renderTemplates();
+  if(page==='integrations')renderIntegrations();
+  if(page==='images')initCanvas();
+}
+
+function updateBrandPreview(){
+  const n=document.getElementById('brand-name-input').value||'Minha Marca';
+  state.brandName=n;
+  document.getElementById('sidebar-brand-name').textContent=n;
+  document.getElementById('sidebar-initials').textContent=n.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+}
+
+function toggleTone(el){el.classList.toggle('active')}
+function toggleStyle(el){el.classList.toggle('active')}
+
+function selectColor(el,type){
+  el.parentElement.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('active'));
+  el.classList.add('active');
+  state.accentColor=el.dataset.color;
+}
+
+function addColor(input){
+  const parent=input.parentElement;
+  const swatch=document.createElement('div');
+  swatch.className='color-swatch';
+  swatch.style.background=input.value;
+  swatch.dataset.color=input.value;
+  swatch.onclick=function(){selectColor(this,'primary')};
+  parent.insertBefore(swatch,parent.querySelector('.color-add'));
+}
+
+function updateAccentColor(val){
+  document.getElementById('accent-hex').value=val;
+  document.getElementById('accent-color').value=val;
+}
+
+function updateFontPreview(){
+  const f=document.getElementById('brand-font').value;
+  document.getElementById('font-sample').style.fontFamily=`'${f}',serif`;
+}
+
+function uploadLogo(e){
+  const file=e.target.files[0];if(!file)return;
+  const url=URL.createObjectURL(file);
+  const wrap=document.getElementById('logo-preview-wrap');
+  wrap.innerHTML=`<img src="${url}" style="max-width:100%;max-height:100px;border-radius:8px">`;
+  ['logo-light','logo-dark'].forEach(id=>{
+    document.getElementById(id).innerHTML=`<img src="${url}" style="max-width:90%;max-height:50px;object-fit:contain">`;
+  });
+}
+
+function saveBrand(){
+  addActivity('Identidade de marca atualizada','brand','badge-green');
+  showToast('Identidade de marca salva!');
+}
+
+function drag(e,id){e.preventDefault();document.getElementById(id).classList.add('drag')}
+function undrag(id){document.getElementById(id).classList.remove('drag')}
+function dropFile(e,type){e.preventDefault();undrag(e.currentTarget.id)}
+
+// CANVAS / MASK
+let ctx,img=null,maskTool='frame';
+function initCanvas(){
+  const canvas=document.getElementById('mask-canvas');
+  if(!canvas)return;
+  ctx=canvas.getContext('2d');
+  drawMaskPreview();
+}
+function drawMaskPreview(){
+  if(!ctx)return;
+  ctx.clearRect(0,0,400,400);
+  if(img){ctx.drawImage(img,0,0,400,400);}else{
+    ctx.fillStyle='#f0f0f0';ctx.fillRect(0,0,400,400);
+    ctx.fillStyle='#aaa';ctx.font='14px DM Sans';ctx.textAlign='center';
+    ctx.fillText('Faça upload de uma imagem',200,200);
+  }
+  applyMaskVisual(maskTool);
+}
+function applyMaskVisual(tool){
+  if(!ctx)return;
+  const ac=state.accentColor||'#e94560';
+  if(tool==='frame'){
+    ctx.strokeStyle=ac;ctx.lineWidth=12;ctx.strokeRect(6,6,388,388);
+    ctx.strokeStyle='#fff';ctx.lineWidth=3;ctx.strokeRect(14,14,372,372);
+  }else if(tool==='overlay'){
+    ctx.fillStyle='rgba(26,26,46,0.4)';ctx.fillRect(0,280,400,120);
+    ctx.fillStyle='#fff';ctx.font='bold 18px DM Sans';ctx.textAlign='center';
+    ctx.fillText(state.brandName,200,340);
+  }else if(tool==='gradient'){
+    const grad=ctx.createLinearGradient(0,0,400,400);
+    grad.addColorStop(0,ac+'88');grad.addColorStop(1,'transparent');
+    ctx.fillStyle=grad;ctx.fillRect(0,0,400,400);
+  }else if(tool==='circle'){
+    ctx.save();ctx.beginPath();ctx.arc(200,200,180,0,Math.PI*2);ctx.clip();
+    if(img)ctx.drawImage(img,0,0,400,400);
+    ctx.restore();
+    ctx.strokeStyle=ac;ctx.lineWidth=8;ctx.beginPath();ctx.arc(200,200,180,0,Math.PI*2);ctx.stroke();
+  }
+}
+function setMaskTool(el,tool){
+  document.querySelectorAll('.mask-tool').forEach(m=>m.classList.remove('active'));
+  el.classList.add('active');
+  maskTool=tool;
+  drawMaskPreview();
+}
+function applyMask(){drawMaskPreview();showToast('Máscara aplicada!')}
+function exportImage(){showToast('Imagem exportada com sucesso!')}
+
+function uploadImage(e){
+  const file=e.target.files[0];if(!file)return;
+  const url=URL.createObjectURL(file);
+  const image=new Image();
+  image.onload=function(){
+    img=image;drawMaskPreview();
+    addToLibrary(url);
+  };image.src=url;
+  document.getElementById('img-upload-hint').innerHTML=`<img src="${url}" style="max-width:100%;max-height:120px;border-radius:8px;margin-bottom:8px"><div class="upload-hint">Imagem carregada · Edite na ferramenta abaixo</div>`;
+}
+
+function addToLibrary(url){
+  const lib=document.getElementById('image-library');
+  const div=document.createElement('div');div.className='img-item';
+  div.innerHTML=`<img src="${url}"><div class="img-overlay"><div class="img-action" title="Editar"><i class="ti ti-wand"></i></div><div class="img-action" title="Exportar"><i class="ti ti-download"></i></div></div>`;
+  lib.prepend(div);
+}
+
+// GENERATE COPY
+async function generateCopy(){
+  const topic=document.getElementById('copy-topic').value.trim();
+  if(!topic){showToast('Descreva o tema do post antes de gerar','error');return;}
+  const btn=document.getElementById('generate-copy-btn');
+  btn.innerHTML='<div class="loading-dots"><span></span><span></span><span></span></div> Gerando...';
+  btn.disabled=true;
+  const results=document.getElementById('copy-results');
+  results.innerHTML=`<div style="text-align:center;padding:40px"><div class="loading-dots"><span></span><span></span><span></span></div><p style="margin-top:12px;color:var(--brand-muted);font-size:13px">Gerando legendas com IA...</p></div>`;
+  const platform=document.getElementById('copy-platform').value;
+  const goal=document.getElementById('copy-goal').value;
+  const count=document.getElementById('copy-count').value;
+  const checkboxes=document.querySelectorAll('#copy-extras input');
+  const extras=Array.from(checkboxes).filter(c=>c.checked).map(c=>c.parentElement.textContent.trim());
+  const brandDesc=document.getElementById('brand-desc')?.value||'';
+  const tones=Array.from(document.querySelectorAll('#tone-chips .mask-tool.active')).map(t=>t.textContent);
+  const prompt=`Você é um especialista em marketing de conteúdo para redes sociais.
+Crie ${count} legenda(s) para ${platform} com as seguintes características:
+- Marca: ${state.brandName}
+- Tom de voz: ${tones.join(', ')||'profissional'}
+- Sobre a marca: ${brandDesc||'empresa criativa'}
+- Objetivo: ${goal}
+- Tema/assunto: ${topic}
+- Incluir: ${extras.join(', ')||'CTA, hashtags'}
+Formate cada versão claramente numerada (Versão 1, Versão 2...). Seja criativo e alinhado com a identidade da marca.`;
+  try{
+    const provider=document.getElementById('ai-provider-copy')?.value||'gemini';
+    const res=await fetch('/api/generate',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({provider,prompt,max_tokens:1000})
+    });
+    const data=await res.json();
+    if(data.error)throw new Error(data.error);
+    displayCopyResults(data.text,platform);
+    addActivity(`Legenda gerada para ${platform} via ${data.provider}`,'copy','badge-blue');
+  }catch(err){
+    results.innerHTML=`<div style="padding:20px;color:#dc2626;font-size:13px"><i class="ti ti-alert-circle"></i> Erro: ${err.message}</div>`;
+  }finally{
+    btn.innerHTML='<i class="ti ti-sparkles"></i> Gerar Legendas com IA';
+    btn.disabled=false;
+  }
+}
+
+function displayCopyResults(text,platform){
+  const versions=text.split(/versão\s*\d+/gi).filter(v=>v.trim().length>10);
+  const results=document.getElementById('copy-results');
+  if(versions.length===0){
+    results.innerHTML=`<div class="ai-output"><div class="ai-chip"><i class="ti ti-sparkles"></i> IA Gerada</div><div class="ai-text">${text}</div><div class="ai-actions"><button class="ai-btn" onclick="copyText(this)" data-text="${encodeURIComponent(text)}"><i class="ti ti-copy"></i> Copiar</button><button class="ai-btn"><i class="ti ti-refresh"></i> Regenerar</button></div></div>`;
+    return;
+  }
+  results.innerHTML=versions.map((v,i)=>`
+    <div class="ai-output" style="margin-bottom:16px">
+      <div class="ai-chip"><i class="ti ti-sparkles"></i> Versão ${i+1}</div>
+      <div class="ai-text">${v.trim().replace(/\n/g,'<br>')}</div>
+      <div class="ai-actions">
+        <button class="ai-btn" onclick="copyText(this)" data-text="${encodeURIComponent(v.trim())}"><i class="ti ti-copy"></i> Copiar</button>
+        <button class="ai-btn"><i class="ti ti-edit"></i> Editar</button>
+      </div>
+    </div>`).join('');
+}
+
+function copyText(btn){
+  const text=decodeURIComponent(btn.dataset.text);
+  navigator.clipboard.writeText(text).then(()=>{btn.innerHTML='<i class="ti ti-check"></i> Copiado!';setTimeout(()=>btn.innerHTML='<i class="ti ti-copy"></i> Copiar',2000)});
+}
+
+// GENERATE PROMPTS
+async function generatePrompt(){
+  const topic=document.getElementById('prompt-topic').value.trim();
+  if(!topic){showToast('Descreva o que você quer gerar','error');return;}
+  const btn=document.getElementById('gen-prompt-btn');
+  btn.innerHTML='<div class="loading-dots"><span></span><span></span><span></span></div> Gerando...';
+  btn.disabled=true;
+  const results=document.getElementById('prompt-results');
+  results.innerHTML=`<div style="text-align:center;padding:40px"><div class="loading-dots"><span></span><span></span><span></span></div><p style="margin-top:12px;color:var(--brand-muted);font-size:13px">Criando prompts otimizados...</p></div>`;
+  const aiTool=document.getElementById('ai-tool').value;
+  const imgType=document.getElementById('img-type').value;
+  const styles=Array.from(document.querySelectorAll('#style-chips .mask-tool.active')).map(t=>t.textContent);
+  const useBrandColors=document.getElementById('use-brand-colors').classList.contains('on');
+  const brandColors=useBrandColors?`Usar as cores: ${state.accentColor}`:'';
+  const prompt=`Você é um especialista em criar prompts para ferramentas de IA generativa de imagens.
+Crie 3 prompts otimizados para ${aiTool} com estas características:
+- Marca: ${state.brandName}
+- Tipo de imagem: ${imgType}
+- Estilo visual: ${styles.join(', ')||'fotografia'}
+- Ideia principal: ${topic}
+- ${brandColors}
+Para cada prompt, use a sintaxe e parâmetros específicos do ${aiTool}. 
+Formate como: [Prompt 1], [Prompt 2], [Prompt 3] - cada um em seu bloco.
+Inclua parâmetros técnicos adequados para cada ferramenta.`;
+  try{
+    const provider=document.getElementById('ai-provider-prompt')?.value||'gemini';
+    const res=await fetch('/api/generate',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({provider,prompt,max_tokens:1000})
+    });
+    const data=await res.json();
+    if(data.error)throw new Error(data.error);
+    displayPromptResults(data.text,aiTool);
+    addActivity(`Prompts gerados para ${aiTool} via ${data.provider}`,'wand','badge-amber');
+  }catch(err){
+    results.innerHTML=`<div style="padding:20px;color:#dc2626;font-size:13px"><i class="ti ti-alert-circle"></i> Erro: ${err.message}</div>`;
+  }finally{
+    btn.innerHTML='<i class="ti ti-wand"></i> Gerar Prompts';
+    btn.disabled=false;
+  }
+}
+
+function displayPromptResults(text,tool){
+  const sections=text.split(/\[Prompt\s*\d+\]/gi).filter(s=>s.trim().length>10);
+  const container=document.getElementById('prompt-results');
+  const toolColors={midjourney:'#6366f1',dalle:'#10a37f',sd:'#f59e0b',firefly:'#e94560',ideogram:'#3b82f6'};
+  const toolColor=toolColors[tool]||'#6366f1';
+  if(sections.length===0){
+    container.innerHTML=`<div class="prompt-card"><div class="prompt-tag">${tool.toUpperCase()}</div><div class="prompt-text">${text}</div><button class="btn btn-outline" style="margin-top:12px;font-size:12px" onclick="copyText(this)" data-text="${encodeURIComponent(text)}"><i class="ti ti-copy"></i> Copiar Prompt</button></div>`;
+    return;
+  }
+  container.innerHTML=`
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+      <span style="font-size:13px;font-weight:600;color:var(--brand-text)">Prompts para</span>
+      <span style="background:${toolColor}15;color:${toolColor};font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;text-transform:uppercase">${tool}</span>
+    </div>
+    ${sections.map((s,i)=>`
+    <div class="prompt-card" style="border-left:3px solid ${toolColor}">
+      <div class="prompt-tag" style="background:${toolColor}15;color:${toolColor}">Prompt ${i+1}</div>
+      <div class="prompt-text">${s.trim()}</div>
+      <div style="display:flex;gap:6px;margin-top:10px">
+        <button class="btn btn-outline" style="font-size:11px;padding:5px 10px" onclick="copyText(this)" data-text="${encodeURIComponent(s.trim())}"><i class="ti ti-copy"></i> Copiar</button>
+        <button class="btn btn-outline" style="font-size:11px;padding:5px 10px"><i class="ti ti-bookmark"></i> Salvar</button>
+      </div>
+    </div>`).join('')}`;
+}
+
+// TEMPLATES
+const templates=[
+  {name:'Post Quadrado',platform:'Instagram',thumb:'linear-gradient(135deg,#667eea,#764ba2)',tag:'1:1'},
+  {name:'Carrossel',platform:'Instagram',thumb:'linear-gradient(135deg,#f093fb,#f5576c)',tag:'Múltiplo'},
+  {name:'Stories Vertical',platform:'Stories',thumb:'linear-gradient(135deg,#4facfe,#00f2fe)',tag:'9:16'},
+  {name:'Cover LinkedIn',platform:'LinkedIn',thumb:'linear-gradient(135deg,#43e97b,#38f9d7)',tag:'16:9'},
+  {name:'Banner Wide',platform:'Banners',thumb:'linear-gradient(135deg,#fa709a,#fee140)',tag:'16:5'},
+  {name:'Post Notícia',platform:'LinkedIn',thumb:'linear-gradient(135deg,#a18cd1,#fbc2eb)',tag:'1.91:1'},
+];
+function renderTemplates(){
+  const grid=document.getElementById('template-grid');
+  grid.innerHTML=templates.map(t=>`
+    <div class="template-item">
+      <div class="template-thumb" style="background:${t.thumb}">
+        <span class="template-tag badge badge-blue">${t.tag}</span>
+      </div>
+      <div class="template-name">${t.name} <span style="color:var(--brand-muted);font-weight:400">· ${t.platform}</span></div>
+    </div>`).join('');
+}
+
+// INTEGRATIONS
+const aiInts=[
+  {name:'Midjourney',emoji:'🎨',desc:'Geração de imagens artísticas de alta qualidade',connected:false,color:'#6366f1'},
+  {name:'DALL-E 3',emoji:'🖼',desc:'OpenAI · Geração de imagens a partir de texto',connected:true,color:'#10a37f'},
+  {name:'Stable Diffusion',emoji:'⚡',desc:'Open source · Controle total sobre a geração',connected:false,color:'#f59e0b'},
+  {name:'Adobe Firefly',emoji:'🦋',desc:'Imagens comercialmente seguras da Adobe',connected:false,color:'#e94560'},
+];
+const mktInts=[
+  {name:'Canva',emoji:'✏️',desc:'Edição e publicação de designs',connected:true,color:'#00c4cc'},
+  {name:'Buffer',emoji:'📅',desc:'Agendamento de posts em redes sociais',connected:false,color:'#2c4bff'},
+];
+const socialInts=[
+  {name:'Instagram',emoji:'📸',desc:'Publicar diretamente via Meta API',connected:false,color:'#e1306c'},
+  {name:'LinkedIn',emoji:'💼',desc:'Compartilhar conteúdo profissional',connected:true,color:'#0a66c2'},
+];
+function renderIntegrations(){
+  function renderList(items,id){
+    document.getElementById(id).innerHTML=items.map(it=>`
+      <div class="integration-item">
+        <div class="int-logo" style="background:${it.color}18;color:${it.color};font-size:22px">${it.emoji}</div>
+        <div class="int-info">
+          <div class="int-name">${it.name}</div>
+          <div class="int-desc">${it.desc}</div>
+        </div>
+        ${it.connected
+          ?`<span class="badge badge-green"><i class="ti ti-check" style="font-size:10px"></i> Conectado</span>`
+          :`<button class="btn btn-outline int-btn" onclick="connectInt(this,'${it.name}')"><i class="ti ti-plug"></i> Conectar</button>`}
+      </div>`).join('');
+  }
+  renderList(aiInts,'ai-integrations');
+  renderList(mktInts,'mkt-integrations');
+  renderList(socialInts,'social-integrations');
+}
+
+function connectInt(btn,name){
+  btn.innerHTML='<div class="loading-dots" style="gap:3px"><span style="width:4px;height:4px"></span><span style="width:4px;height:4px;animation-delay:.15s"></span><span style="width:4px;height:4px;animation-delay:.3s"></span></div>';
+  setTimeout(()=>{
+    btn.outerHTML='<span class="badge badge-green"><i class="ti ti-check" style="font-size:10px"></i> Conectado</span>';
+    addActivity(`${name} conectado`,'plug','badge-green');
+  },1200);
+}
+
+// ACTIVITY
+function addActivity(text,icon,badgeClass){
+  state.activity.unshift({text,icon,badgeClass,time:'agora'});
+  renderActivity();
+}
+function renderActivity(){
+  const list=document.getElementById('activity-list');
+  if(!list)return;
+  if(state.activity.length===0){
+    list.innerHTML='<div style="padding:20px;text-align:center;color:var(--brand-muted);font-size:13px">Nenhuma atividade ainda</div>';
+    return;
+  }
+  list.innerHTML=state.activity.slice(0,6).map(a=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:12px 24px;border-bottom:1px solid var(--brand-border)">
+      <div style="width:28px;height:28px;border-radius:6px;background:var(--brand-surface);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <i class="ti ti-${a.icon}" style="font-size:14px;color:var(--brand-muted)"></i>
+      </div>
+      <div style="flex:1;font-size:13px">${a.text}</div>
+      <span style="font-size:11px;color:var(--brand-muted)">${a.time}</span>
+    </div>`).join('');
+}
+
+function setTab(el,page,val){
+  el.closest('.tabs').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// TOAST
+function showToast(msg,type='success'){
+  const t=document.createElement('div');
+  t.style.cssText=`position:fixed;bottom:24px;right:24px;background:${type==='error'?'#dc2626':'#059669'};color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:500;z-index:9999;animation:fadeUp .3s ease`;
+  t.textContent=msg;document.body.appendChild(t);
+  setTimeout(()=>t.remove(),2500);
+}
+
+// INIT
+document.addEventListener('DOMContentLoaded',()=>{
+  renderActivity();
+  initCanvas();
+  // populate library with placeholder items
+  const placeholders=['https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=200','https://images.unsplash.com/photo-1586339949916-3e9457bef6d3?w=200','https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=200'];
+  const lib=document.getElementById('image-library');
+  placeholders.forEach(url=>{
+    const div=document.createElement('div');div.className='img-item';
+    div.innerHTML=`<img src="${url}" loading="lazy"><div class="img-overlay"><div class="img-action"><i class="ti ti-wand"></i></div><div class="img-action"><i class="ti ti-download"></i></div></div>`;
+    lib.appendChild(div);
+  });
+});
+</script>
+<style>
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</body>
+</html>
